@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.tommasoberlose.darkmode.R
+import com.tommasoberlose.darkmode.helpers.DarkThemeHelper
 import com.tommasoberlose.darkmode.ui.viewmodels.MainViewModel
 import com.tommasoberlose.darkmode.utils.isDarkTheme
 
@@ -23,5 +24,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main_activity)
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.isSecurePermissionGranted.value = DarkThemeHelper.checkSecurePermission(this)
     }
 }

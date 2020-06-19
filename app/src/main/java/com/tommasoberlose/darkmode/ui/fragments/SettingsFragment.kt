@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -69,6 +70,7 @@ class SettingsFragment : Fragment(), PurchasesUpdatedListener {
         }
 
         action_donate.setOnClickListener {
+            donate_loader.isVisible = true
             viewModel.openConnection()
         }
 
@@ -77,6 +79,7 @@ class SettingsFragment : Fragment(), PurchasesUpdatedListener {
 
     private fun subscribeUi(viewModel: MainViewModel) {
         viewModel.products.observe(viewLifecycleOwner, Observer {
+            donate_loader.isVisible = false
             if (it.isNotEmpty()) {
                 viewModel.purchase(requireActivity(), it.first())
             }

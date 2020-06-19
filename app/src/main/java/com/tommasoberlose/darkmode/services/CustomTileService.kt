@@ -15,18 +15,19 @@ class CustomTileService: TileService(){
 
     override fun onClick() {
         super.onClick()
-
-        val tile = qsTile
-        if (isDarkTheme()) {
-            tile.state = Tile.STATE_INACTIVE
-        } else {
-            tile.state = Tile.STATE_ACTIVE
+        if (DarkThemeHelper.checkSecurePermission(this, showNotification = true)) {
+            val tile = qsTile
+            if (isDarkTheme()) {
+                tile.state = Tile.STATE_INACTIVE
+            } else {
+                tile.state = Tile.STATE_ACTIVE
+            }
+            DarkThemeHelper.toggleDarkTheme(this)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                tile.subtitle = getSubtitle(!isDarkTheme())
+            }
+            tile.updateTile()
         }
-        DarkThemeHelper.toggleDarkTheme(this)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            tile.subtitle = getSubtitle(!isDarkTheme())
-        }
-        tile.updateTile()
     }
 
     override fun onTileAdded() {

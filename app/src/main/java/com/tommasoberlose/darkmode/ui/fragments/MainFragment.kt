@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.text.format.DateFormat.is24HourFormat
 import android.text.format.DateUtils
+import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +35,7 @@ import com.tommasoberlose.darkmode.databinding.MainFragmentBinding
 import com.tommasoberlose.darkmode.global.Constants
 import com.tommasoberlose.darkmode.global.Preferences
 import com.tommasoberlose.darkmode.helpers.DarkThemeHelper
+import com.tommasoberlose.darkmode.helpers.DarkThemeHelper.SECURE_PERMISSION_ERROR
 import com.tommasoberlose.darkmode.helpers.TimeHelper
 import com.tommasoberlose.darkmode.services.SunsetSunriseService
 import com.tommasoberlose.darkmode.services.UpdatesIntentService
@@ -85,6 +87,9 @@ class MainFragment : Fragment() {
     super.onActivityCreated(savedInstanceState)
 
     addListener()
+
+    // Link
+    action_view_tutorial.movementMethod = LinkMovementMethod.getInstance()
 
     // Check OnePlus device
     warning_oneplus_container.isVisible = !Build.MANUFACTURER.equals("oneplus", ignoreCase = true) && !Preferences.hideOnePlusWarning
@@ -267,7 +272,13 @@ class MainFragment : Fragment() {
   fun onMessageEvent(event: MainUiEvent) {
     loader.visibility = if (event.isLoading) View.VISIBLE else View.INVISIBLE
     event.error?.let {
-      requireActivity().toast(event.error)
+      if (it == SECURE_PERMISSION_ERROR) {
+        viewModel.isSecurePermissionGranted.value = false
+      } else if (!it.isBlank()) {
+        requireActivity().toast(it)
+      }
+    } ?: run {
+      viewModel.isSecurePermissionGranted.value = DarkThemeHelper.checkSecurePermission(requireContext())
     }
   }
 }

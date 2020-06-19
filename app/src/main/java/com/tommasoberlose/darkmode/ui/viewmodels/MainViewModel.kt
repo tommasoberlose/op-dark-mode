@@ -13,6 +13,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainViewModel : ViewModel() {
+    var isSecurePermissionGranted: MutableLiveData<Boolean> = MutableLiveData(true)
+
     val isTileAdded = Preferences.asLiveData(Preferences::isTileAdded)
     val automaticMode = Preferences.asLiveData(Preferences::automaticMode)
 

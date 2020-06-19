@@ -6,6 +6,7 @@
         <variable
             name="viewModel"
             type="com.tommasoberlose.darkmode.ui.viewmodels.MainViewModel" />
+        <import type="android.view.View"/>
     </data>
 
     <RelativeLayout
@@ -104,6 +105,7 @@
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
                     android:gravity="center_vertical"
+                    android:alpha="@{viewModel.isSecurePermissionGranted() ? 1F : 0.2F}"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="0dp"
@@ -117,6 +119,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
+                        android:enabled="@{viewModel.isSecurePermissionGranted() ? true : false, default=true}"
                         android:id="@+id/action_toggle_mode"
                         android:buttonTint="@color/colorAccent" />
                 </LinearLayout>
@@ -127,8 +130,9 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
-                    android:clickable="true"
-                    android:focusable="true"
+                    android:clickable="@{viewModel.isSecurePermissionGranted() ? true : false, default=true}"
+                    android:focusable="@{viewModel.isSecurePermissionGranted() ? true : false, default=true}"
+                    android:alpha="@{viewModel.isSecurePermissionGranted() ? 1F : 0.2F}"
                     android:foreground="?attr/selectableItemBackground"
                     android:id="@+id/action_change_automatic_mode"
                     app:cardBackgroundColor="@color/colorBackground">
@@ -331,6 +335,7 @@
                     android:layout_height="wrap_content"
                     app:cardElevation="0dp"
                     android:id="@+id/quick_settings_tile"
+                    android:alpha="@{viewModel.isSecurePermissionGranted() ? 1F : 0.2F}"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp">
                     <LinearLayout
@@ -349,6 +354,45 @@
                             android:layout_height="wrap_content"
                             style="@style/TextAppearance.Settings.Subtitle"
                             android:text="@string/quick_settings_tile_subtitle"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardElevation="0dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:visibility="@{viewModel.isSecurePermissionGranted() ? View.GONE : View.VISIBLE, default=gone}"
+                    app:cardBackgroundColor="@color/colorBackground">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/TextAppearance.Settings.Title"
+                            android:text="@string/secure_permission_title"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/TextAppearance.Settings.Subtitle"
+                            android:lineHeight="20sp"
+                            android:text="@string/secure_permission_subtitle"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/TextAppearance.Settings.Subtitle"
+                            android:text="@string/secure_permission_message"
+                            android:textColor="@color/colorPrimaryText"
+                            android:layout_marginTop="16dp"
+                            android:linksClickable="true"
+                            android:clickable="true"
+                            android:id="@+id/action_view_tutorial"
+                            android:textColorLink="@color/colorAccent"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
