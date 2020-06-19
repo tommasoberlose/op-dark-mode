@@ -32,4 +32,6 @@
     <string name="sunset_and_sunrise_api">Sunset and Sunrise API</string>
     <string name="sunset_and_sunrise_api_subtitle">https://sunrise-sunset.org/api</string>
     <string name="app_subtitle">Get one of the best Android 10 features\nwith some custom automatic trick.</string>
+    <string name="thanks">Thanks for supporting me!</string>
+    <string name="error">Ooops, something went wrong!</string>
 </resources>

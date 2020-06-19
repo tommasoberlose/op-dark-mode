@@ -1,2 +1,2 @@
-# op-dark-mode
+# +1 Dark Mode
 Dark mode toggle for OnePlus devices
