@@ -10,9 +10,8 @@ Help me developing with feedback and support me on how you can.
 <div style="text-align:center"><a href="https://play.google.com/store/apps/details?id=com.tommasoberlose.darkmode" target="_blank"><img src="google-play-badge.png" height="100" /></a></div>
 
 <br />
-<br />
 
-WRITE_SECURE_SETTINGS Permission
+Grant the permission `WRITE_SECURE_SETTINGS`
 -------
 1. #### Enable Developer Options.
 Go to the system settings, open the device info screen (where there is the Android version), then tap 7 times on Build Number.
@@ -33,6 +32,7 @@ Based on your OS you'll need to execute the command `./adb [...]` or `.\adb [...
 5. #### Restart the app
 If everything worked you can restart the app and start using the Dark Mode on your device.
 
+<br />
 
 License
 -------
