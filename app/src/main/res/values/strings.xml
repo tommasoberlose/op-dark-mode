@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Dark Mode</string>
+    <string name="app_name_full">+1 Dark Mode</string>
+    <string name="error_opening_uri">Error opening URL: Link copied to clipboard.</string>
+    <string name="quick_settings_tile_title">Quick settings tile</string>
+    <string name="quick_settings_tile_subtitle">Add the Dark Mode tile to the quick settings panel to change the dark mode from every screen.</string>
+    <string name="turn_on_dark_mode_manually">Turn on Dark Mode manually</string>
+    <string name="turn_on_dark_mode_automatically">Turn on automatically</string>
+    <string name="turn_on_dark_mode_automatically_disabled">Disabled</string>
+    <string name="turn_on_dark_mode_automatically_sunrise_sunset">Automatically enable from sunset to sunrise</string>
+    <string name="turn_on_dark_mode_automatically_custom_time">Custom time range</string>
+    <string name="from">From:</string>
+    <string name="to">To:</string>
+    <string name="start_at">On at %s</string>
+    <string name="end_at">Off at %s</string>
+    <string name="start_at_sunset">On at sunset</string>
+    <string name="end_at_sunrise">Off at sunrise</string>
+    <string name="error_loading_sunset_and_sunrise">Sunset and sunrise not updated.</string>
+    <string name="oneplus_warning_title">You\'re alone? You could have brought +1.</string>
+    <string name="oneplus_warning_subtitle">This application is specifically built for OnePlus devices that don\'t have a dark mode toggle.</string>
+    <string name="missing_permission_title">Missing permission</string>
+    <string name="action_grant_permission">Grant permission</string>
+    <string name="missing_permission_subtitle">We need to access your location in the background to check the sunset and sunrise times every day.</string>
+    <string name="settings_fragment_title">Settings</string>
+    <string name="settings_app_version_title">App version</string>
+    <string name="feedback_title">Feedback and feature requests</string>
+    <string name="feedback_subtitle">Share your ideas in the project repository</string>
+    <string name="donate_title">Support the Developer</string>
+    <string name="donate_subtitle">Offer me a cup of coffee</string>
+    <string name="develop_header">Develop</string>
+    <string name="special_thanks_header">Special thanks</string>
+    <string name="sunset_and_sunrise_api">Sunset and Sunrise API</string>
+    <string name="sunset_and_sunrise_api_subtitle">https://sunrise-sunset.org/api</string>
+    <string name="app_subtitle">Get one of the best Android 10 features\nwith some custom automatic trick.</string>
+</resources>

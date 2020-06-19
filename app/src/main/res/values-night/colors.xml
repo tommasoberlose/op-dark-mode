@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#202020</color>
+    <color name="colorPrimaryDark">#121212</color>
+    <color name="colorAccent">#F50614</color>
+    <color name="colorPrimaryText">#FFFFFF</color>
+    <color name="colorSecondaryText">#99FFFFFF</color>
+    <color name="disabledButtonBackground">#202020</color>
+    <color name="colorDivider">#33000000</color>
+    <color name="colorBackground">#121212</color>
+    <color name="colorOnBackground">#202020</color>
+</resources>

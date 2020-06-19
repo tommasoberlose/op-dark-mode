@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "241985566343",
+    "firebase_url": "https://op-dark-mode.firebaseio.com",
+    "project_id": "op-dark-mode",
+    "storage_bucket": "op-dark-mode.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241985566343:android:c1a01249973690e7beaa22",
+        "android_client_info": {
+          "package_name": "com.tommasoberlose.darkmode"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "241985566343-7r7ptajjrll8l4cu9i5b4246nqchvu8r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMyRcfblPb3Vhpv0MDAszeq-aV_ApPznQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "241985566343-7r7ptajjrll8l4cu9i5b4246nqchvu8r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
