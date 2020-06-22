@@ -37,6 +37,7 @@ import com.tommasoberlose.darkmode.global.Preferences
 import com.tommasoberlose.darkmode.helpers.DarkThemeHelper
 import com.tommasoberlose.darkmode.helpers.DarkThemeHelper.SECURE_PERMISSION_ERROR
 import com.tommasoberlose.darkmode.helpers.TimeHelper
+import com.tommasoberlose.darkmode.services.LocationService
 import com.tommasoberlose.darkmode.services.SunsetSunriseService
 import com.tommasoberlose.darkmode.services.UpdatesIntentService
 import com.tommasoberlose.darkmode.ui.viewmodels.MainViewModel
@@ -183,8 +184,9 @@ class MainFragment : Fragment() {
           UpdatesIntentService.setUpdates(requireContext())
 
           if (value == Constants.AutomaticMode.SUNRISE_SUNSET_BASED) {
-            SunsetSunriseService.requestSunsetSunriseTime(requireContext())
             requirePermission()
+            SunsetSunriseService.requestSunsetSunriseTime(requireContext())
+            LocationService.requestNewLocation(requireContext())
           }
         }.show()
     }
@@ -277,8 +279,6 @@ class MainFragment : Fragment() {
       } else if (!it.isBlank()) {
         requireActivity().toast(it)
       }
-    } ?: run {
-      viewModel.isSecurePermissionGranted.value = DarkThemeHelper.checkSecurePermission(requireContext())
     }
   }
 }

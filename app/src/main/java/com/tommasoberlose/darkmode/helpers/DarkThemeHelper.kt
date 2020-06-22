@@ -14,7 +14,6 @@ object DarkThemeHelper {
 
     fun toggleDarkTheme(context: Context, enable: Boolean? = null) {
         with(context.getSystemService(Context.UI_MODE_SERVICE) as UiModeManager) {
-            enableCarMode(0)
             try {
                 Settings.Secure.putInt(
                     context.contentResolver, UI_NIGHT_MODE, when (enable) {
@@ -30,6 +29,7 @@ object DarkThemeHelper {
                 )
                 EventBus.getDefault().post(MainUiEvent())
                 NotificationHelper.hideSecurePermissionNotification(context)
+                enableCarMode(0)
             } catch (ignored: Exception) {
                 EventBus.getDefault().post(MainUiEvent(error = SECURE_PERMISSION_ERROR))
                 NotificationHelper.showSecurePermissionNotification(context)

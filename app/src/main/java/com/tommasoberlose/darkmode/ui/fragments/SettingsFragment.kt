@@ -97,9 +97,11 @@ class SettingsFragment : Fragment(), PurchasesUpdatedListener {
         } else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
             // DO nothing
             viewModel.closeConnection()
+            donate_loader.isVisible = false
         } else {
             activity?.toast(getString(R.string.error))
             viewModel.closeConnection()
+            donate_loader.isVisible = false
         }
     }
 

@@ -36,7 +36,7 @@ class MainViewModel : ViewModel() {
             override fun onBillingSetupFinished(billingResult: BillingResult) {
                 if (billingResult.responseCode ==  BillingClient.BillingResponseCode.OK) {
                     val params = SkuDetailsParams.newBuilder()
-                    params.setSkusList(listOf("donation_coffee", "donation_donuts", "donation_breakfast", "donation_lunch", "donation_dinner")).setType(
+                    params.setSkusList(listOf("coffee")).setType(
                         BillingClient.SkuType.INAPP)
                     viewModelScope.launch(Dispatchers.IO) {
                         val skuDetailsList = billingClient.querySkuDetails(params.build()).skuDetailsList
