@@ -60,7 +60,12 @@ object TimeHelper {
 
         return Pair(sunset, sunrise)
     }
+
     fun getFormattedTime(context: Context, time: Calendar): String {
         return DateUtils.formatDateTime(context, time.timeInMillis, DateUtils.FORMAT_SHOW_TIME)
+    }
+
+    fun getStandardDate(time: Calendar): String {
+        return "${time.get(Calendar.HOUR_OF_DAY).toString().padStart(2, '0')}:${time.get(Calendar.MINUTE).toString().padStart(2, '0')}"
     }
 }

@@ -14,9 +14,6 @@ class UpdatesReceiver : BroadcastReceiver() {
         when (intent.action) {
             Actions.ACTION_UPDATE_DARK_MODE_ON -> DarkThemeHelper.toggleDarkTheme(context, true)
             Actions.ACTION_UPDATE_DARK_MODE_OFF -> DarkThemeHelper.toggleDarkTheme(context, false)
-            Actions.ACTION_UPDATE_SUNRISE_SUNSET_TIME -> {
-
-            }
         }
     }
 }

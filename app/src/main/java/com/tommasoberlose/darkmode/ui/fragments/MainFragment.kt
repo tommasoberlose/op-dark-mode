@@ -125,17 +125,17 @@ class MainFragment : Fragment() {
         Constants.AutomaticMode.DISABLED -> {
           automatic_mode_label.text = getText(R.string.turn_on_dark_mode_automatically_disabled)
           custom_time_range_container.collapseHeight()
-//          sunset_sunrise_time_container.collapse()
+          sunset_sunrise_time_container.collapse()
         }
         Constants.AutomaticMode.SUNRISE_SUNSET_BASED -> {
           automatic_mode_label.text = getText(R.string.turn_on_dark_mode_automatically_sunrise_sunset)
           custom_time_range_container.collapseHeight()
-//          sunset_sunrise_time_container.expand()
+          sunset_sunrise_time_container.expand()
         }
         Constants.AutomaticMode.TIME_BASED -> {
           automatic_mode_label.text = getText(R.string.turn_on_dark_mode_automatically_custom_time)
           custom_time_range_container.expandHeight()
-//          sunset_sunrise_time_container.collapse()
+          sunset_sunrise_time_container.collapse()
         }
         else -> {}
       }
@@ -157,6 +157,10 @@ class MainFragment : Fragment() {
 
     viewModel.sunriseTime.observe(viewLifecycleOwner, Observer {
       time_sunrise.text = TimeHelper.getFormattedTime(requireContext(), TimeHelper.getSunsetSunriseCalendars().second)
+    })
+
+    viewModel.location.observe(viewLifecycleOwner, Observer {
+      location.text = if (Preferences.latitude == "0" && Preferences.longitude == "" || it == "") getString(R.string.unknown_location) else it
     })
   }
 
@@ -203,6 +207,10 @@ class MainFragment : Fragment() {
         Preferences.endTime = it
         UpdatesIntentService.setUpdates(requireContext())
       }
+    }
+
+    action_update_location.setOnClickListener {
+      LocationService.requestNewLocation(requireContext())
     }
   }
 

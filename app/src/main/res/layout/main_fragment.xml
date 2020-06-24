@@ -268,66 +268,90 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/sunset_sunrise_time_container"
                         android:gravity="center_vertical"
-                        android:visibility="gone"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
                         <com.google.android.material.card.MaterialCardView
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:cardElevation="0dp"
+                            android:clickable="true"
+                            android:focusable="true"
                             android:layout_marginLeft="8dp"
+                            android:id="@+id/action_update_location"
+                            android:foreground="?attr/selectableItemBackground"
                             app:cardBackgroundColor="@color/colorBackground">
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:padding="16dp"
-                                android:layout_marginTop="8dp"
-                                android:gravity="center"
-                                android:orientation="horizontal">
-                                <androidx.appcompat.widget.AppCompatImageView
-                                    android:layout_width="24dp"
-                                    android:layout_height="24dp"
-                                    app:tint="@color/colorPrimaryText"
-                                    android:src="@drawable/ic_action_sunset" />
+                                android:orientation="vertical">
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="16dp"
-                                    android:layout_marginRight="16dp"
                                     style="@style/TextAppearance.Settings.Title"
-                                    android:id="@+id/time_sunset"
-                                    android:text="22:00"/>
+                                    android:text="@string/location"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    style="@style/TextAppearance.Settings.Subtitle"
+                                    android:id="@+id/location"
+                                    android:text="@string/unknown_location"/>
                             </LinearLayout>
                         </com.google.android.material.card.MaterialCardView>
-                        <com.google.android.material.card.MaterialCardView
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardElevation="0dp"
-                            android:layout_marginRight="8dp"
-                            app:cardBackgroundColor="@color/colorBackground">
-                            <LinearLayout
-                                android:layout_width="match_parent"
+                            android:orientation="horizontal">
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:padding="16dp"
-                                android:gravity="center"
-                                android:layout_marginTop="8dp"
-                                android:orientation="horizontal">
-                                <androidx.appcompat.widget.AppCompatImageView
-                                    android:layout_width="24dp"
-                                    android:layout_height="24dp"
-                                    app:tint="@color/colorPrimaryText"
-                                    android:src="@drawable/ic_action_sunrise" />
-                                <TextView
-                                    android:layout_width="wrap_content"
+                                app:cardElevation="0dp"
+                                android:layout_marginLeft="8dp"
+                                app:cardBackgroundColor="@color/colorBackground">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="16dp"
-                                    android:layout_marginRight="16dp"
-                                    style="@style/TextAppearance.Settings.Title"
-                                    android:id="@+id/time_sunrise"
-                                    android:text="07:00"/>
-                            </LinearLayout>
-                        </com.google.android.material.card.MaterialCardView>
+                                    android:padding="16dp"
+                                    android:orientation="vertical">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        style="@style/TextAppearance.Settings.Title"
+                                        android:text="@string/sunset"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        style="@style/TextAppearance.Settings.Subtitle"
+                                        android:id="@+id/time_sunset"
+                                        android:text="22:00"/>
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                app:cardElevation="0dp"
+                                android:layout_marginRight="8dp"
+                                app:cardBackgroundColor="@color/colorBackground">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="16dp"
+                                    android:orientation="vertical">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        style="@style/TextAppearance.Settings.Title"
+                                        android:text="@string/sunrise"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        style="@style/TextAppearance.Settings.Subtitle"
+                                        android:id="@+id/time_sunrise"
+                                        android:text="07:00"/>
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+                        </LinearLayout>
                     </LinearLayout>
                 </RelativeLayout>
                 <com.google.android.material.card.MaterialCardView

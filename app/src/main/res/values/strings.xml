@@ -44,4 +44,8 @@
     <string name="secure_permission_title">Missing permission</string>
     <string name="secure_permission_subtitle">The permission WRITE_SECURE_SETTINGS is required to enable the dark theme on this device.\nWe wont access any other setting.</string>
     <string name="secure_permission_message">You need to use a tool on your computer.\nDetailed instructions are available <a href="https://github.com/tommasoberlose/op-dark-mode#write_secure_settings-permission">here</a>.</string>
+    <string name="location">Location:</string>
+    <string name="unknown_location">Unknown</string>
+    <string name="sunset">Sunset:</string>
+    <string name="sunrise">Sunrise:</string>
 </resources>

@@ -31,7 +31,7 @@ class UpdatesIntentService : JobIntentService() {
                 Constants.AutomaticMode.TIME_BASED -> {
                     val (start, end) = TimeHelper.getRangeCalendars()
                     setRepeating(
-                        AlarmManager.RTC,
+                        AlarmManager.RTC_WAKEUP,
                         start.apply {
                             if (now.timeInMillis > timeInMillis) {
                                 add(Calendar.DAY_OF_YEAR, 1)
@@ -41,7 +41,7 @@ class UpdatesIntentService : JobIntentService() {
                         PendingIntent.getBroadcast(this@UpdatesIntentService, START_ALARM_ID, Intent(this@UpdatesIntentService, UpdatesReceiver::class.java).apply { action = Actions.ACTION_UPDATE_DARK_MODE_ON }, PendingIntent.FLAG_UPDATE_CURRENT)
                     )
                     setRepeating(
-                        AlarmManager.RTC,
+                        AlarmManager.RTC_WAKEUP,
                         end.apply {
                             if (now.timeInMillis > timeInMillis) {
                                 add(Calendar.DAY_OF_YEAR, 1)
@@ -55,7 +55,7 @@ class UpdatesIntentService : JobIntentService() {
                 Constants.AutomaticMode.SUNRISE_SUNSET_BASED -> {
                     val (sunset, sunrise) = TimeHelper.getSunsetSunriseCalendars()
                     setRepeating(
-                        AlarmManager.RTC,
+                        AlarmManager.RTC_WAKEUP,
                         sunset.apply {
                             if (now.timeInMillis > timeInMillis) {
                                 add(Calendar.DAY_OF_YEAR, 1)
@@ -65,7 +65,7 @@ class UpdatesIntentService : JobIntentService() {
                         PendingIntent.getBroadcast(this@UpdatesIntentService, SUNSET_ALARM_ID, Intent(this@UpdatesIntentService, UpdatesReceiver::class.java).apply { action = Actions.ACTION_UPDATE_DARK_MODE_ON }, PendingIntent.FLAG_UPDATE_CURRENT)
                     )
                     setRepeating(
-                        AlarmManager.RTC,
+                        AlarmManager.RTC_WAKEUP,
                         sunrise.apply {
                             if (now.timeInMillis > timeInMillis) {
                                 add(Calendar.DAY_OF_YEAR, 1)

@@ -22,10 +22,10 @@ class MainViewModel : ViewModel() {
     val startTime = Preferences.asLiveData(Preferences::startTime)
     val endTime = Preferences.asLiveData(Preferences::endTime)
 
-    // Custom time range
+    // Sunset and sunrise
     val sunriseTime = Preferences.asLiveData(Preferences::sunriseTime)
     val sunsetTime = Preferences.asLiveData(Preferences::sunsetTime)
-
+    val location = Preferences.asLiveData(Preferences::location)
 
     // Billing
     lateinit var billingClient: BillingClient

@@ -16,6 +16,7 @@ object Preferences : KotprefModel() {
     // SUNRISE & SUNSET
     var latitude by stringPref(default = "0")
     var longitude by stringPref(default = "0")
+    var location by stringPref(default = "")
 
     var sunsetTime by stringPref(default = "22:00")
     var sunriseTime by stringPref(default = "07:00")
