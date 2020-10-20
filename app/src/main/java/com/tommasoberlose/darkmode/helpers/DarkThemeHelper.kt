@@ -3,6 +3,7 @@ package com.tommasoberlose.darkmode.helpers
 import android.app.UiModeManager
 import android.content.Context
 import android.provider.Settings
+import android.util.Log
 import com.tommasoberlose.darkmode.components.events.MainUiEvent
 import org.greenrobot.eventbus.EventBus
 

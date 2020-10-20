@@ -268,6 +268,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/sunset_sunrise_time_container"
                         android:gravity="center_vertical"
+                        android:visibility="gone"
                         android:orientation="vertical">
                         <com.google.android.material.card.MaterialCardView
                             android:layout_width="match_parent"
@@ -295,6 +296,13 @@
                                     style="@style/TextAppearance.Settings.Subtitle"
                                     android:id="@+id/location"
                                     android:text="@string/unknown_location"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:id="@+id/bg_geolocation_warning_message"
+                                    style="@style/TextAppearance.Settings.Subtitle"
+                                    android:text="@string/background_location_warning"/>
                             </LinearLayout>
                         </com.google.android.material.card.MaterialCardView>
                         <LinearLayout

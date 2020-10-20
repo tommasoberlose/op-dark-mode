@@ -42,8 +42,8 @@ class SunsetSunriseService : JobIntentService() {
                             .withZoneSameInstant(ZoneId.systemDefault())
                         val sunrise = ZonedDateTime.parse(results.sunrise)
                             .withZoneSameInstant(ZoneId.systemDefault())
-                        Preferences.sunsetTime = TimeHelper.getStandardDate(GregorianCalendar.from(sunset)).apply { Log.d("ciao", this) }
-                        Preferences.sunriseTime = TimeHelper.getStandardDate(GregorianCalendar.from(sunrise)).apply { Log.d("ciao", this) }
+                        Preferences.sunsetTime = TimeHelper.getStandardDate(GregorianCalendar.from(sunset))
+                        Preferences.sunriseTime = TimeHelper.getStandardDate(GregorianCalendar.from(sunrise))
                         Preferences.lastSunsetSunriseCheck =
                             Calendar.getInstance().timeInMillis
                         UpdatesIntentService.setUpdates(this@SunsetSunriseService)

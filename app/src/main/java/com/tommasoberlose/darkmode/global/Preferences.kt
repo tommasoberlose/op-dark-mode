@@ -8,6 +8,7 @@ object Preferences : KotprefModel() {
 
     // SETTINGS
     var automaticMode by enumValuePref(Constants.AutomaticMode.DISABLED)
+    var toggleThemeRequiresDeviceIdle by booleanPref(default = false)
 
     // TIME RANGE
     var startTime by stringPref(default = "22:00")

@@ -10,6 +10,7 @@ import android.location.Geocoder
 import androidx.core.app.ActivityCompat
 import androidx.core.app.JobIntentService
 import com.google.android.gms.location.LocationServices
+import com.tommasoberlose.darkmode.R
 import com.tommasoberlose.darkmode.components.events.MainUiEvent
 import com.tommasoberlose.darkmode.global.Constants
 import com.tommasoberlose.darkmode.global.Preferences
@@ -18,6 +19,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import org.greenrobot.eventbus.EventBus
+import java.lang.Exception
 import java.util.*
 
 
@@ -54,13 +56,14 @@ class LocationService : JobIntentService() {
         val geocoder: Geocoder = Geocoder(this, Locale.getDefault())
 
         GlobalScope.launch(Dispatchers.IO) {
+            try {
             val addresses: List<Address> = geocoder.getFromLocation(
                 latitude,
                 longitude,
                 1
             )
-
-            val address: String = addresses[0].getAddressLine(0) // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+            val address: String =
+                addresses[0].getAddressLine(0) // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
 
             val city: String = addresses[0].locality
             val state: String = addresses[0].adminArea
@@ -68,6 +71,9 @@ class LocationService : JobIntentService() {
             val postalCode: String = addresses[0].postalCode
 
             Preferences.location = "$city, $country"
+            } catch (ignored: Exception) {
+                Preferences.location = "${getString(R.string.unknown_location)} (${latitude},${longitude})"
+            }
         }
     }
 

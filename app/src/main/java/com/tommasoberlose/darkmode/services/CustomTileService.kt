@@ -17,16 +17,18 @@ class CustomTileService: TileService(){
         super.onClick()
         if (DarkThemeHelper.checkSecurePermission(this, showNotification = true)) {
             val tile = qsTile
-            if (isDarkTheme()) {
-                tile.state = Tile.STATE_INACTIVE
-            } else {
-                tile.state = Tile.STATE_ACTIVE
+            if (tile != null) {
+                if (isDarkTheme()) {
+                    tile.state = Tile.STATE_INACTIVE
+                } else {
+                    tile.state = Tile.STATE_ACTIVE
+                }
+                DarkThemeHelper.toggleDarkTheme(this)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    tile.subtitle = getSubtitle(!isDarkTheme())
+                }
+                tile.updateTile()
             }
-            DarkThemeHelper.toggleDarkTheme(this)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                tile.subtitle = getSubtitle(!isDarkTheme())
-            }
-            tile.updateTile()
         }
     }
 
@@ -50,11 +52,13 @@ class CustomTileService: TileService(){
 
     private fun updateTile() {
         val tile = qsTile
-        tile.state = if (isDarkTheme()) Tile.STATE_ACTIVE else Tile.STATE_INACTIVE
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            tile.subtitle = getSubtitle()
+        if (tile != null) {
+            tile.state = if (isDarkTheme()) Tile.STATE_ACTIVE else Tile.STATE_INACTIVE
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                tile.subtitle = getSubtitle()
+            }
+            tile.updateTile()
         }
-        tile.updateTile()
     }
 
     private fun getSubtitle(isDark: Boolean = isDarkTheme()): String {

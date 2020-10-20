@@ -12,6 +12,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import com.tommasoberlose.darkmode.R
 import com.tommasoberlose.darkmode.ui.activities.MainActivity
+import java.util.*
 
 object NotificationHelper {
     private const val NOTIFICATION_ID = 14

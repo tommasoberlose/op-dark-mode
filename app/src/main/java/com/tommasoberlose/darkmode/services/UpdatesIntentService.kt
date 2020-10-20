@@ -10,6 +10,7 @@ import androidx.core.app.JobIntentService
 import com.tommasoberlose.darkmode.global.Actions
 import com.tommasoberlose.darkmode.global.Constants
 import com.tommasoberlose.darkmode.global.Preferences
+import com.tommasoberlose.darkmode.helpers.NotificationHelper
 import com.tommasoberlose.darkmode.helpers.TimeHelper
 import com.tommasoberlose.darkmode.receivers.UpdatesReceiver
 import java.util.*
@@ -19,7 +20,6 @@ class UpdatesIntentService : JobIntentService() {
     override fun onHandleWork(intent: Intent) {
         with(getSystemService(Context.ALARM_SERVICE) as AlarmManager) {
             // Remove alarms
-            cancel(PendingIntent.getBroadcast(this@UpdatesIntentService, SUNSET_SUNRISE_ALARM_ID, Intent(this@UpdatesIntentService, UpdatesReceiver::class.java), PendingIntent.FLAG_UPDATE_CURRENT))
             cancel(PendingIntent.getBroadcast(this@UpdatesIntentService, SUNSET_ALARM_ID, Intent(this@UpdatesIntentService, UpdatesReceiver::class.java), PendingIntent.FLAG_UPDATE_CURRENT))
             cancel(PendingIntent.getBroadcast(this@UpdatesIntentService, SUNRISE_ALARM_ID, Intent(this@UpdatesIntentService, UpdatesReceiver::class.java), PendingIntent.FLAG_UPDATE_CURRENT))
             cancel(PendingIntent.getBroadcast(this@UpdatesIntentService, START_ALARM_ID, Intent(this@UpdatesIntentService, UpdatesReceiver::class.java), PendingIntent.FLAG_UPDATE_CURRENT))
@@ -82,7 +82,6 @@ class UpdatesIntentService : JobIntentService() {
     }
 
     companion object {
-        private const val SUNSET_SUNRISE_ALARM_ID = 54
         private const val START_ALARM_ID = 56
         private const val END_ALARM_ID = 58
         private const val SUNSET_ALARM_ID = 60
