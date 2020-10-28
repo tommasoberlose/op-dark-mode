@@ -14,6 +14,7 @@ import com.tommasoberlose.darkmode.R
 import com.tommasoberlose.darkmode.components.events.MainUiEvent
 import com.tommasoberlose.darkmode.global.Constants
 import com.tommasoberlose.darkmode.global.Preferences
+import com.tommasoberlose.darkmode.helpers.NotificationHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -34,6 +35,7 @@ class LocationService : JobIntentService() {
                 Manifest.permission.ACCESS_BACKGROUND_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
+            NotificationHelper.showRunningNotification(this)
             EventBus.getDefault().post(MainUiEvent(isLoading = true))
             GlobalScope.launch(Dispatchers.IO) {
                 val location = LocationServices.getFusedLocationProviderClient(this@LocationService).lastLocation.await()
@@ -48,6 +50,7 @@ class LocationService : JobIntentService() {
                     updateAddress(location.latitude, location.longitude)
                     EventBus.getDefault().post(MainUiEvent(isLoading = false))
                 }
+                NotificationHelper.hideRunningNotification(this@LocationService)
             }
         }
     }
@@ -57,22 +60,25 @@ class LocationService : JobIntentService() {
 
         GlobalScope.launch(Dispatchers.IO) {
             try {
-            val addresses: List<Address> = geocoder.getFromLocation(
-                latitude,
-                longitude,
-                1
-            )
-            val address: String =
-                addresses[0].getAddressLine(0) // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                NotificationHelper.showRunningNotification(this@LocationService)
+                val addresses: List<Address> = geocoder.getFromLocation(
+                    latitude,
+                    longitude,
+                    1
+                )
+                val address: String =
+                    addresses[0].getAddressLine(0) // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
 
-            val city: String = addresses[0].locality
-            val state: String = addresses[0].adminArea
-            val country: String = addresses[0].countryName
-            val postalCode: String = addresses[0].postalCode
+                val city: String = addresses[0].locality
+                val state: String = addresses[0].adminArea
+                val country: String = addresses[0].countryName
+                val postalCode: String = addresses[0].postalCode
 
-            Preferences.location = "$city, $country"
+                Preferences.location = "$city, $country"
             } catch (ignored: Exception) {
                 Preferences.location = "${getString(R.string.unknown_location)} (${latitude},${longitude})"
+            } finally {
+                NotificationHelper.hideRunningNotification(this@LocationService)
             }
         }
     }

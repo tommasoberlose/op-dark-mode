@@ -41,6 +41,12 @@
     <string name="missing_secure_permission_notification_title">Permission not granted</string>
     <string name="missing_secure_permission_notification_subtitle">Dark mode needs the permission to write secure setting to be able to toggle the dark theme on this device.</string>
 
+    <string name="running_notification_channel_id">running-notification</string>
+    <string name="running_notification_channel_name">Dark Mode running status</string>
+    <string name="running_notification_channel_description">Notify the user when the app is running in the background</string>
+    <string name="running_notification_title">Dark Mode is running in the background</string>
+    <string name="running_notification_subtitle">We\'re going into the dark side of the moon.</string>
+
     <string name="secure_permission_title">Missing permission</string>
     <string name="secure_permission_subtitle">The permission WRITE_SECURE_SETTINGS is required to enable the dark theme on this device.\nWe wont access any other setting.</string>
     <string name="secure_permission_message">You need to use a tool on your computer.\nDetailed instructions are available <a href="https://github.com/tommasoberlose/op-dark-mode#write_secure_settings-permission">here</a>.</string>

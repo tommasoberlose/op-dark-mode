@@ -16,6 +16,7 @@ import java.util.*
 
 object NotificationHelper {
     private const val NOTIFICATION_ID = 14
+    private const val RUNNING_NOTIFICATION_ID = 26
 
     fun showSecurePermissionNotification(context: Context) {
         with(NotificationManagerCompat.from(context)) {
@@ -47,6 +48,39 @@ object NotificationHelper {
     fun hideSecurePermissionNotification(context: Context) {
         with(NotificationManagerCompat.from(context)) {
             cancel(NOTIFICATION_ID)
+        }
+    }
+
+    fun showRunningNotification(context: Context) {
+        with(NotificationManagerCompat.from(context)) {
+            // Create channel
+            createNotificationChannel(
+                NotificationChannel(
+                    context.getString(R.string.running_notification_channel_id),
+                    context.getString(R.string.running_notification_channel_name),
+                    NotificationManager.IMPORTANCE_MIN
+                ).apply {
+                    description = context.getString(R.string.running_notification_channel_description)
+                }
+            )
+
+            val builder = Notification.Builder(context, context.getString(R.string.running_notification_channel_id))
+                .setSmallIcon(R.drawable.ic_notification_dark_theme)
+                .setContentTitle(context.getString(R.string.running_notification_title))
+                .setStyle(Notification.BigTextStyle().bigText(context.getString(R.string.running_notification_subtitle)))
+                .setOngoing(true)
+                .setColor(ContextCompat.getColor(context, R.color.colorAccent))
+
+            // Main intent that open the activity
+            builder.setContentIntent(PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT))
+
+            notify(RUNNING_NOTIFICATION_ID, builder.build())
+        }
+    }
+
+    fun hideRunningNotification(context: Context) {
+        with(NotificationManagerCompat.from(context)) {
+            cancel(RUNNING_NOTIFICATION_ID)
         }
     }
 }

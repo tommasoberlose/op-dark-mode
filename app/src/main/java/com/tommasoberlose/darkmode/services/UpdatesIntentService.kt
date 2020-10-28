@@ -18,6 +18,7 @@ import java.util.*
 class UpdatesIntentService : JobIntentService() {
 
     override fun onHandleWork(intent: Intent) {
+        NotificationHelper.showRunningNotification(this)
         with(getSystemService(Context.ALARM_SERVICE) as AlarmManager) {
             // Remove alarms
             cancel(PendingIntent.getBroadcast(this@UpdatesIntentService, SUNSET_ALARM_ID, Intent(this@UpdatesIntentService, UpdatesReceiver::class.java), PendingIntent.FLAG_UPDATE_CURRENT))
@@ -79,6 +80,7 @@ class UpdatesIntentService : JobIntentService() {
                 else -> {}
             }
         }
+        NotificationHelper.hideRunningNotification(this)
     }
 
     companion object {

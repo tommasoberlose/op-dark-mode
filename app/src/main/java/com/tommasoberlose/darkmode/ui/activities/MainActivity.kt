@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.tommasoberlose.darkmode.R
 import com.tommasoberlose.darkmode.helpers.DarkThemeHelper
+import com.tommasoberlose.darkmode.helpers.NotificationHelper
 import com.tommasoberlose.darkmode.ui.viewmodels.MainViewModel
 import com.tommasoberlose.darkmode.utils.isDarkTheme
 

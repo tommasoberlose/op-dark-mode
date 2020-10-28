@@ -14,6 +14,7 @@ object DarkThemeHelper {
     const val SECURE_PERMISSION_ERROR = "SECURE_PERMISSION_ERROR"
 
     fun toggleDarkTheme(context: Context, enable: Boolean? = null) {
+        NotificationHelper.showRunningNotification(context)
         with(context.getSystemService(Context.UI_MODE_SERVICE) as UiModeManager) {
             try {
                 Settings.Secure.putInt(
@@ -36,6 +37,7 @@ object DarkThemeHelper {
                 NotificationHelper.showSecurePermissionNotification(context)
             } finally {
                 disableCarMode(0)
+                NotificationHelper.hideRunningNotification(context)
             }
         }
     }

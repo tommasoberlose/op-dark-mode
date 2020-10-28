@@ -12,6 +12,7 @@ import com.google.android.gms.location.LocationServices
 import com.tommasoberlose.darkmode.R
 import com.tommasoberlose.darkmode.components.events.MainUiEvent
 import com.tommasoberlose.darkmode.global.Preferences
+import com.tommasoberlose.darkmode.helpers.NotificationHelper
 import com.tommasoberlose.darkmode.helpers.TimeHelper
 import com.tommasoberlose.darkmode.models.Results
 import com.tommasoberlose.darkmode.network.SunsetSunriseRepository
@@ -30,6 +31,7 @@ class SunsetSunriseService : JobIntentService() {
     override fun onHandleWork(intent: Intent) {
         if (Preferences.latitude != "0" && Preferences.longitude != "0") {
             EventBus.getDefault().post(MainUiEvent(isLoading = true))
+            NotificationHelper.showRunningNotification(this)
             GlobalScope.launch(Dispatchers.IO) {
                 val response = SunsetSunriseRepository.getSunsetSunriseTime(
                     Preferences.latitude.toDouble(),
@@ -66,6 +68,7 @@ class SunsetSunriseService : JobIntentService() {
                         )
                     )
                 }
+                NotificationHelper.hideRunningNotification(this@SunsetSunriseService)
             }
         } else {
             LocationService.requestNewLocation(this)
