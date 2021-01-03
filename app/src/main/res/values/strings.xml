@@ -46,6 +46,8 @@
     <string name="running_notification_channel_description">Notify the user when the app is running in the background</string>
     <string name="running_notification_title">Dark Mode is running in the background</string>
     <string name="running_notification_subtitle">We\'re going into the dark side of the moon.</string>
+    <string name="location_access_notification_title">Dark Mode is accessing your location</string>
+    <string name="location_access_notification_subtitle">We\'re updating the sunset and sunrise time.</string>
 
     <string name="secure_permission_title">Missing permission</string>
     <string name="secure_permission_subtitle">The permission WRITE_SECURE_SETTINGS is required to enable the dark theme on this device.\nWe wont access any other setting.</string>

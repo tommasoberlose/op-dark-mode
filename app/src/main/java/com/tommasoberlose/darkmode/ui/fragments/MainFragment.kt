@@ -230,7 +230,7 @@ class MainFragment : Fragment() {
   }
 
   private fun checkPermission() {
-    if (Preferences.automaticMode != Constants.AutomaticMode.SUNRISE_SUNSET_BASED || activity?.checkGrantedPermission(Manifest.permission.ACCESS_FINE_LOCATION) == true && activity?.checkGrantedPermission(Manifest.permission.ACCESS_BACKGROUND_LOCATION) == true) {
+    if (Preferences.automaticMode != Constants.AutomaticMode.SUNRISE_SUNSET_BASED || requireActivity().checkGrantedPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
       action_grant_location_permission.collapseHeight()
       warning_missing_permission.collapseHeight()
     } else {
@@ -245,8 +245,7 @@ class MainFragment : Fragment() {
   private fun requirePermission() {
     Dexter.withContext(requireContext())
       .withPermissions(
-        Manifest.permission.ACCESS_FINE_LOCATION,
-        Manifest.permission.ACCESS_BACKGROUND_LOCATION
+        Manifest.permission.ACCESS_FINE_LOCATION
       ).withListener(object: MultiplePermissionsListener {
         override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
           report?.let {

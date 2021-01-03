@@ -1,14 +1,19 @@
 package com.tommasoberlose.darkmode.services
 
 import android.Manifest
+import android.app.Service
 import android.app.job.JobScheduler
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
+import android.os.IBinder
+import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.app.JobIntentService
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.app.ServiceCompat
 import com.google.android.gms.location.LocationServices
 import com.tommasoberlose.darkmode.R
 import com.tommasoberlose.darkmode.components.events.MainUiEvent
@@ -17,28 +22,32 @@ import com.tommasoberlose.darkmode.global.Preferences
 import com.tommasoberlose.darkmode.helpers.NotificationHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import org.greenrobot.eventbus.EventBus
 import java.lang.Exception
 import java.util.*
+import kotlin.collections.ArrayList
 
+class LocationService : Service() {
 
-class LocationService : JobIntentService() {
+    private val jobs: ArrayList<Job> = ArrayList()
 
-    override fun onHandleWork(intent: Intent) {
+    override fun onCreate() {
+        super.onCreate()
+
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_BACKGROUND_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            NotificationHelper.showRunningNotification(this)
-            EventBus.getDefault().post(MainUiEvent(isLoading = true))
-            GlobalScope.launch(Dispatchers.IO) {
-                val location = LocationServices.getFusedLocationProviderClient(this@LocationService).lastLocation.await()
+            startForeground(NotificationHelper.LOCATION_ACCESS_NOTIFICATION_ID, NotificationHelper.getLocationAccessNotification(this@LocationService))
+
+            jobs += GlobalScope.launch(Dispatchers.IO) {
+                EventBus.getDefault().post(MainUiEvent(isLoading = true))
+                val location =
+                    LocationServices.getFusedLocationProviderClient(this@LocationService).lastLocation.await()
                 if (location != null) {
                     Preferences.latitude = "${location.latitude}"
                     Preferences.longitude = "${location.longitude}"
@@ -48,17 +57,19 @@ class LocationService : JobIntentService() {
                     }
 
                     updateAddress(location.latitude, location.longitude)
-                    EventBus.getDefault().post(MainUiEvent(isLoading = false))
                 }
-                NotificationHelper.hideRunningNotification(this@LocationService)
+                EventBus.getDefault().post(MainUiEvent(isLoading = false))
+                stopForeground(true)
             }
+        } else {
+            stopForeground(true)
         }
     }
 
     private fun updateAddress(latitude: Double, longitude: Double) {
-        val geocoder: Geocoder = Geocoder(this, Locale.getDefault())
+        val geocoder = Geocoder(this, Locale.getDefault())
 
-        GlobalScope.launch(Dispatchers.IO) {
+        jobs += GlobalScope.launch(Dispatchers.IO) {
             try {
                 NotificationHelper.showRunningNotification(this@LocationService)
                 val addresses: List<Address> = geocoder.getFromLocation(
@@ -83,16 +94,22 @@ class LocationService : JobIntentService() {
         }
     }
 
-    companion object {
+    override fun onDestroy() {
+        super.onDestroy()
+        jobs.forEach {
+            it.cancel()
+        }
+    }
 
-        private const val JOB_ID = 1005
+    companion object {
 
         @JvmStatic
         fun requestNewLocation(context: Context) {
-            with (context.applicationContext.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler) {
-                cancel(JOB_ID)
-                enqueueWork(context, LocationService::class.java, JOB_ID, Intent(context, LocationService::class.java))
-            }
+            context.startForegroundService(Intent(context, LocationService::class.java))
         }
+    }
+
+    override fun onBind(intent: Intent?): IBinder? {
+        return null
     }
 }
