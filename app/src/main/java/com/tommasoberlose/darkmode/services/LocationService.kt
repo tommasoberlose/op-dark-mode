@@ -36,14 +36,15 @@ class LocationService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        startForeground(NotificationHelper.LOCATION_ACCESS_NOTIFICATION_ID, NotificationHelper.getLocationAccessNotification(this@LocationService))
+    }
 
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            startForeground(NotificationHelper.LOCATION_ACCESS_NOTIFICATION_ID, NotificationHelper.getLocationAccessNotification(this@LocationService))
-
             jobs += GlobalScope.launch(Dispatchers.IO) {
                 EventBus.getDefault().post(MainUiEvent(isLoading = true))
                 val location =
@@ -59,11 +60,12 @@ class LocationService : Service() {
                     updateAddress(location.latitude, location.longitude)
                 }
                 EventBus.getDefault().post(MainUiEvent(isLoading = false))
-                stopForeground(true)
+                stopSelf()
             }
         } else {
-            stopForeground(true)
+            stopSelf()
         }
+        return START_STICKY
     }
 
     private fun updateAddress(latitude: Double, longitude: Double) {
@@ -88,8 +90,6 @@ class LocationService : Service() {
                 Preferences.location = "$city, $country"
             } catch (ignored: Exception) {
                 Preferences.location = "${getString(R.string.unknown_location)} (${latitude},${longitude})"
-            } finally {
-                NotificationHelper.hideRunningNotification(this@LocationService)
             }
         }
     }

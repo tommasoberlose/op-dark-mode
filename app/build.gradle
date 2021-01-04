@@ -16,8 +16,8 @@ android {
         applicationId "com.tommasoberlose.darkmode"
         minSdkVersion 29
         targetSdkVersion 30
-        versionCode 14
-        versionName "0.1.8"
+        versionCode 15
+        versionName "0.1.9"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
